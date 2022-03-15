@@ -1,4 +1,5 @@
 package com.example.lab1_cpp.entity;
+
 public class Fibonacci {
 
     private int value;
@@ -10,7 +11,5 @@ public class Fibonacci {
     public int getValue() {
         return value;
     }
-
-
 
 }
