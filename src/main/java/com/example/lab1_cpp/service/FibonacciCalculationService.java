@@ -1,20 +1,38 @@
 package com.example.lab1_cpp.service;
 
 import com.example.lab1_cpp.entity.Fibonacci;
+import com.example.lab1_cpp.controller.FibonacciCalculationController;
+import com.example.lab1_cpp.exception.RestExceptionHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FibonacciCalculationService {
+    private static final Logger logger = LogManager.getLogger(FibonacciCalculationService.class);
+
+    @Autowired
+    private FibonacciCalculationHash hashMap;
 
     public Fibonacci findFibonacciByPosition(int position){
         int result = 0;
-        int fib1 = 1;
-        int fib2 = 1;
 
-        for (int i = 0; i < position - 2; i++){
-            result = fib1 + fib2;
-            fib1 = fib2;
-            fib2 = result;
+        if (hashMap.isContain(position)){
+            result = hashMap.getParameters(position).getValue();
+            logger.info("get hashMap");
+        }
+        else {
+            int fib1 = 1;
+            int fib2 = 1;
+
+            for (int i = 0; i < position - 2; i++) {
+                result = fib1 + fib2;
+                fib1 = fib2;
+                fib2 = result;
+            }
+
+            hashMap.addToMap(position, new Fibonacci(result));
         }
         return new Fibonacci(result);
     }

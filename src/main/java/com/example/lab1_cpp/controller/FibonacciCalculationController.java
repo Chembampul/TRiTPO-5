@@ -22,7 +22,7 @@ public class FibonacciCalculationController {
     @Autowired
     private FibonacciCalculationService fibonacciCalculationService;
 
-    @GetMapping("/calculation/")
+    @GetMapping("/calculation")
     public Fibonacci calculation(@RequestParam(value = "position") @Min(0) @Max(100) int position) {
         logger.info("Successfully logged");
         return fibonacciCalculationService.findFibonacciByPosition(position);
