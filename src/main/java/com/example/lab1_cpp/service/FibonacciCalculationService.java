@@ -1,25 +1,29 @@
 package com.example.lab1_cpp.service;
 
 import com.example.lab1_cpp.entity.Fibonacci;
-import com.example.lab1_cpp.controller.FibonacciCalculationController;
-import com.example.lab1_cpp.exception.RestExceptionHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedHashMap;
 
 @Service
 public class FibonacciCalculationService {
     private static final Logger logger = LogManager.getLogger(FibonacciCalculationService.class);
 
     @Autowired
-    private FibonacciCalculationHash hashMap;
+    private FibonacciCalculationHash linkedHashMap;
+
+    public  FibonacciCalculationService(FibonacciCalculationHash linkedHashMap) { this.linkedHashMap = linkedHashMap; }
+
+    public LinkedHashMap<Integer, Fibonacci> getHashMap(){ return linkedHashMap.getFullHash(); }
 
     public Fibonacci findFibonacciByPosition(int position){
         int result = 0;
 
-        if (hashMap.isContain(position)){
-            result = hashMap.getParameters(position).getValue();
+        if (linkedHashMap.findByKey(position)){
+            result = linkedHashMap.getParameters(position).getValue();
             logger.info("get hashMap");
         }
         else {
@@ -32,9 +36,14 @@ public class FibonacciCalculationService {
                 fib2 = result;
             }
 
-            hashMap.addToMap(position, new Fibonacci(result));
+            linkedHashMap.addToMap(position, new Fibonacci(result));
         }
         return new Fibonacci(result);
     }
+
+
+
 }
+
+
 

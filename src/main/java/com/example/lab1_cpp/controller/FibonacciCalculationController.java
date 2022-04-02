@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.LinkedHashMap;
 
 @RestController
 @Validated
@@ -26,6 +27,12 @@ public class FibonacciCalculationController {
     public Fibonacci calculation(@RequestParam(value = "position") @Min(0) @Max(100) int position) {
         logger.info("Successfully logged");
         return fibonacciCalculationService.findFibonacciByPosition(position);
+    }
+
+    @GetMapping("/fibonacciHash")
+    public LinkedHashMap<Integer, Fibonacci> getFibonacciHash(){
+        logger.info("Full hash was printed");
+        return fibonacciCalculationService.getHashMap();
     }
 }
 
