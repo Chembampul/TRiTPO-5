@@ -15,8 +15,6 @@ public class FibonacciCalculationService {
     @Autowired
     private FibonacciCalculationHash linkedHashMap;
 
-    public  FibonacciCalculationService(FibonacciCalculationHash linkedHashMap) { this.linkedHashMap = linkedHashMap; }
-
     public LinkedHashMap<Integer, Fibonacci> getHashMap(){ return linkedHashMap.getFullHash(); }
 
     public Fibonacci findFibonacciByPosition(int position){
