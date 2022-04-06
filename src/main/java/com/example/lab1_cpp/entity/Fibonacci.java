@@ -4,9 +4,7 @@ public class Fibonacci {
 
     private int value;
 
-    public Fibonacci(int value) {
-        this.value = value;
-    }
+    public Fibonacci(int value) { this.value = value; }
 
     public int getValue() {
         return value;
