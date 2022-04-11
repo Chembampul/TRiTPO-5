@@ -1,5 +1,7 @@
 package com.example.lab1_cpp.controller;
 
+import com.example.lab1_cpp.counter.RequestCounterThread;
+import com.example.lab1_cpp.counter.Synchronization;
 import com.example.lab1_cpp.entity.Fibonacci;
 import com.example.lab1_cpp.service.FibonacciCalculationService;
 import org.apache.logging.log4j.LogManager;
@@ -22,11 +24,16 @@ public class FibonacciCalculationController {
 
     @Autowired
     private FibonacciCalculationService fibonacciCalculationService;
+    RequestCounterThread requestCounterThread = new RequestCounterThread();
 
     @GetMapping("/calculation")
     public Fibonacci calculation(@RequestParam(value = "position") @Min(0) @Max(100) int position) {
+        Fibonacci result = fibonacciCalculationService.findFibonacciByPosition(position);
+
+        Synchronization.semaphore.release();
+        requestCounterThread.run();
         logger.info("Successfully logged");
-        return fibonacciCalculationService.findFibonacciByPosition(position);
+        return result;
     }
 
     @GetMapping("/fibonacciHash")

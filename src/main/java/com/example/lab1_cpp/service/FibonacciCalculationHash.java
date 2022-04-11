@@ -24,9 +24,4 @@ public Fibonacci getParameters(int key){
 
 public LinkedHashMap<Integer, Fibonacci> getFullHash(){ return linkedHashMap; }
 
-
-
-
-
-
 }
