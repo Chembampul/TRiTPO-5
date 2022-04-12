@@ -25,8 +25,9 @@ public class FibonacciCalculationController {
 
     @GetMapping("/calculation")
     public Fibonacci calculation(@RequestParam(value = "position") @Min(0) @Max(100) int position) {
+        Fibonacci result = fibonacciCalculationService.findFibonacciByPosition(position);
         logger.info("Successfully logged");
-        return fibonacciCalculationService.findFibonacciByPosition(position);
+        return result;
     }
 
     @GetMapping("/fibonacciHash")
