@@ -1,5 +1,6 @@
 package com.example.lab1_cpp.service;
 
+import com.example.lab1_cpp.counter.RequestCounterThread;
 import com.example.lab1_cpp.entity.Fibonacci;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,6 +21,7 @@ public class FibonacciCalculationService {
     public LinkedHashMap<Integer, Fibonacci> getHashMap(){ return linkedHashMap.getFullHash(); }
 
     public Fibonacci findFibonacciByPosition(int position){
+        new RequestCounterThread(Thread.currentThread().getName()).start();
         int result = 0;
 
         if (linkedHashMap.findByKey(position)){
